@@ -1,0 +1,38 @@
+package $db.BasePackage$db.packageSufix;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ${db.BasePackage}model.${db.table};
+import ${db.BasePackage}repository.${db.table}Repository;
+
+@Service
+public class $db.table$db.outputFileSufix {
+
+	@Autowired
+	private ${db.table}Repository repository;
+
+	public void create($db.table objToSave){
+		repository.save(objToSave);
+	}
+
+	public void update($db.table objToUpdate){
+		repository.save(objToUpdate);
+	}
+
+	public void delete(Long id){
+		repository.deleteById(id);
+	}
+
+	public ${db.table} findByIdAndUserId(Long id, Long userId){
+		return repository.findByIdAndUserId(id, userId);
+	}
+
+	public List<${db.table}> findAllByUserId(Long id){
+		return repository.findAllByUserId(id);
+	}
+
+}
+

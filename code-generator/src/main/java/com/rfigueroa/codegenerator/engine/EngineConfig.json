@@ -1,0 +1,89 @@
+{
+	"BasePath": "src/main/java/com/rfigueroa/codegenerator/engine/",
+	"OutputFolder": "c:/tools/codegen/",
+	"BasePackage": "com.tanrilla.lizard.",
+	"JAVA": {		
+		"FileExtension": ".java",
+		"PackageDelimiter" : ".",
+		"InputDB": {
+			"username": "root",
+			"password": "root",
+			"url": "jdbc:mysql://localhost:3306/lizard_db?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+			"driver": "com.mysql.jdbc.Driver",
+			"tablesQuery": "show tables",
+			"collsQuery": "describe %s"
+		},
+		"Templates": [
+			{
+				"name": "java_template_domain.vm",
+				"path": "templates/java/java_template_domain.vm",
+				"description": "Domain Generation",
+				"outputFileSufix": "",
+				"packageSufix": "model"
+			},
+			{
+				"name": "java_template_repository.vm",
+				"path": "templates/java/java_template_repository.vm",
+				"description": "Repository Generation",
+				"outputFileSufix": "Repository",
+				"packageSufix": "repository"
+			},
+			{
+				"name": "java_template_service.vm",
+				"path": "templates/java/java_template_service.vm",
+				"description": "Service Generation",
+				"outputFileSufix": "ServiceImpl",
+				"packageSufix": "service"
+			},
+			{
+				"name": "java_template_api.vm",
+				"path": "templates/java/java_template_api.vm",
+				"description": "Api RestFul Generation",
+				"outputFileSufix": "ApiController",
+				"packageSufix": "controller"
+			}
+		]
+	},
+	"JAVASCRIPT": {		
+		"FileExtension": ".java",
+		"PackageDelimiter" : ".",
+		"InputDB": {
+			"username": "root",
+			"password": "root",
+			"url": "jdbc:mysql://localhost:3306/mail_db?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+			"driver": "com.mysql.jdbc.Driver",
+			"tablesQuery": "show tables",
+			"collsQuery": "describe %s"
+		},
+		"Templates": [
+			{
+				"name": "java_template_domain.vm",
+				"path": "templates/java/java_template_domain.vm",
+				"description": "Domain Generation",
+				"outputFileSufix": "",
+				"packageSufix": "model"
+			},
+			{
+				"name": "java_template_repository.vm",
+				"path": "templates/java/java_template_repository.vm",
+				"description": "Repository Generation",
+				"outputFileSufix": "Repository",
+				"packageSufix": "repository"
+			},
+			{
+				"name": "java_template_service.vm",
+				"path": "templates/java/java_template_service.vm",
+				"description": "Service Generation",
+				"outputFileSufix": "ServiceImpl",
+				"packageSufix": "service"
+			},
+			{
+				"name": "java_template_api.vm",
+				"path": "templates/java/java_template_api.vm",
+				"description": "Api RestFul Generation",
+				"outputFileSufix": "ApiController",
+				"packageSufix": "controllers"
+			}
+		]
+	}
+}
