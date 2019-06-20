@@ -1,0 +1,18 @@
+package $db.BasePackage$db.packageSufix;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import ${db.BasePackage}model.${db.table};
+
+public interface $db.table$db.outputFileSufix extends CrudRepository<$db.table, Long> {
+
+	@Query(value = "SELECT o FROM ${db.table} o")
+	List<$db.table> findAllById(Long id);
+	
+	@Query(value = "SELECT o FROM ${db.table} o")
+	$db.table findByIdAndBaseId(Long id, Long baseId);
+	
+}

@@ -30,6 +30,7 @@ public final class CodeGeneratorEngine {
 	private static String outputFolder = null;
 	private static String packageDelimiter = null;
 	private final static String WinDelimiter = "/";
+	private static Map<String, String> classNames = null;
 
 	private CodeGeneratorEngine() {
 
@@ -63,6 +64,7 @@ public final class CodeGeneratorEngine {
 			templates = (List) languageConfig.get("Templates");
 			packageDelimiter = (String) languageConfig.get("PackageDelimiter");
 			fileExtension = (String) languageConfig.get("FileExtension");
+			classNames = (LinkedHashMap) config.get("classNames");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,7 +74,9 @@ public final class CodeGeneratorEngine {
 
 	public void generateCode() {
 
-		List<Map<String, Object>> dbObjects = DbTablesDescriberFactory.getDbTablesDescriber("GENERIC", dbConfig)
+		List<Map<String, Object>> dbObjects = DbTablesDescriberFactory
+				.getDbTablesDescriber("GENERIC", dbConfig)
+				.setMappingTableNames(classNames)
 				.getDBObjects();
 
 		dbObjects.forEach(obj -> {
@@ -139,6 +143,6 @@ public final class CodeGeneratorEngine {
 	}
 
 	public static void main(String[] args) {
-		CodeGeneratorEngine.newInstance().loadConfiguration("JAVA").generateCode();
+		CodeGeneratorEngine.newInstance().loadConfiguration("JAVA3").generateCode();
 	}
 }

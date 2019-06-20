@@ -1,6 +1,7 @@
 package $db.BasePackage$db.packageSufix;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import ${db.BasePackage}model.${db.table};
 import ${db.BasePackage}repository.${db.table}Repository;
 
 @Service
-public class $db.table$db.outputFileSufix {
+public class $db.table$db.outputFileSufix implements ${db.table}Service {
 
 	@Autowired
 	private ${db.table}Repository repository;
@@ -26,12 +27,12 @@ public class $db.table$db.outputFileSufix {
 		repository.deleteById(id);
 	}
 
-	public ${db.table} findByIdAndUserId(Long id, Long userId){
-		return repository.findByIdAndUserId(id, userId);
+	public List<${db.table}> getAll(){
+		return repository.getAllObjects();
 	}
 
-	public List<${db.table}> findAllByUserId(Long id){
-		return repository.findAllByUserId(id);
+	public Optional<${db.table}> get${db.table}(Long id){
+		return repository.getObjectById(id);
 	}
 
 }

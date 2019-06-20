@@ -1,0 +1,96 @@
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+
+class $db.table$db.outputFileSufix extends React.Component {
+
+    state = {
+        open: false,
+#foreach($field in $db.colls) #if($field.name != "createdBy" && $field.name != "modifiedBy" && $field.name != "createdDate" && $field.name != "modifiedDate" && $field.name != "deleted")
+        ${field.name}: null,
+#end #end
+    };
+      
+    componentWillReceiveProps(nextProps) {
+        let open = nextProps.openModalFlag;
+        if(open === true || open === false){
+            this.setState({open});
+        }
+
+        let editData = nextProps.editData;
+        if(editData) {
+          this.setState({
+#foreach($field in $db.colls) #if($field.name != "createdBy" && $field.name != "modifiedBy" && $field.name != "createdDate" && $field.name != "modifiedDate" && $field.name != "deleted")
+            ${field.name}: editData.${field.name},
+#end #end
+          });
+        }
+    }
+
+    handleChange = name => event => {
+      this.setState({
+        [name]: event.target.value,
+      });
+    };
+
+    saveClickAction = () =>{
+      const { saveAction } = this.props;
+      saveAction({
+#foreach($field in $db.colls) #if($field.name != "createdBy" && $field.name != "modifiedBy" && $field.name != "createdDate" && $field.name != "modifiedDate" && $field.name != "deleted")
+        ${field.name}: this.state.${field.name},
+#end #end
+      });
+    };
+
+    render() {
+       
+        const { handleClose } = this.props;
+
+        return (
+          <div>
+            <Dialog
+              open={this.state.open}
+              onClose={handleClose}
+              aria-labelledby="form-dialog-title"
+            >
+              <DialogTitle id="form-dialog-title">Nuevo</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                    Puede registrar un Tipo de Articulo ingresando un nombre y una description para la Tipo, luego click en guardar.
+                </DialogContentText>
+#foreach($field in $db.colls) #if($field.name != "createdBy" && $field.name != "modifiedBy" && $field.name != "createdDate" && $field.name != "modifiedDate" && $field.name != "deleted")
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="${field.name}"
+                    label="${field.name}" 
+                    value={this.state.${field.name}}
+                    onChange={this.handleChange('${field.name}')} 
+                    InputLabelProps={{
+                      shrink: true,
+                    }}                
+                    fullWidth
+                />
+#end #end
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Cancelar
+                </Button>
+                <Button onClick={this.saveClickAction} color="primary">
+                  Guardar
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
+        );
+      }
+}
+
+export default $db.table$db.outputFileSufix;

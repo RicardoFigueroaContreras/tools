@@ -1,0 +1,16 @@
+package $db.BasePackage$db.packageSufix;
+
+import java.util.List;
+import java.util.Optional;
+
+import ${db.BasePackage}model.${db.table};
+
+public interface $db.table$db.outputFileSufix {
+
+	void create($db.table objToSave);
+	void update($db.table objToUpdate);	
+	void delete(Long id);
+	List<${db.table}> getAll();
+	Optional<${db.table}> get${db.table}(Long id);
+
+}

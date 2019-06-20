@@ -26,12 +26,12 @@ public class $db.table$db.outputFileSufix {
 		repository.deleteById(id);
 	}
 
-	public ${db.table} findByIdAndUserId(Long id, Long userId){
-		return repository.findByIdAndUserId(id, userId);
+	public ${db.table} findByIdAndBaseId(Long id, Long baseId){
+		return repository.findByIdAndBaseId(id, baseId);
 	}
 
-	public List<${db.table}> findAllByUserId(Long id){
-		return repository.findAllByUserId(id);
+	public List<${db.table}> findAllById(Long id){
+		return repository.findAllById(id);
 	}
 
 }

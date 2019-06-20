@@ -1,0 +1,103 @@
+import React from 'react';
+import { connect } from 'react-redux';
+
+
+import CustomTable from '../../commons/components/CustomTable';
+import Modal from './${db.table}Modal';
+import { 
+        getAll,
+        save,
+        deleteOne,
+        getOne,
+        update,
+        clearState
+        } from '../actions/${db.table}Action';
+
+class $db.table$db.outputFileSufix extends React.Component {
+
+    state = {
+        rows: [],
+        open: false,
+    };
+
+    constructor(props) {
+        super(props); 
+        this.cells =[
+		#foreach($field in $db.colls) #if($field.name != "createdBy" && $field.name != "modifiedBy" && $field.name != "createdDate" && $field.name != "modifiedDate" && $field.name != "deleted")
+			{keyName: '${field.name}', name: '${field.name}'},
+		#end #end
+	];
+    }
+
+    componentDidMount () {
+        this.props.getAll();
+    }
+
+    deleteOnClick = (id) =>{
+        this.props.deleteOne(id);
+    };
+
+    editOnClick = (id) =>{
+        this.props.clearState();
+        this.props.getOne(id);
+        this.setState({ open: true });
+    };
+
+    handleClickOpen = () => {
+        this.props.clearState();
+        this.setState({ open: true });
+    };
+    
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+
+    saveAction = (${stringUtil.camelName($db.table)}) => {
+        if(${stringUtil.camelName($db.table)}.id){
+            this.props.update(${stringUtil.camelName($db.table)});
+        }else {
+            this.props.save(${stringUtil.camelName($db.table)});
+        }
+        this.setState({ open: false });
+    };
+
+    render(){
+        
+        return(
+            <div> 
+                <CustomTable 
+                    data={this.props.${stringUtil.camelName($db.table)}List} 
+                    header={this.cells} 
+                    addOnClick={this.handleClickOpen} 
+                    deleteOnClick={this.deleteOnClick}
+                    editOnClick={this.editOnClick}
+                    title={"<${db.table}>"}/>
+                <Modal 
+                    openModalFlag={this.state.open} 
+                    handleClose={this.handleClose}
+                    saveAction={this.saveAction}
+                    editData={this.props.${stringUtil.camelName($db.table)}}/>
+            </div>
+    
+        )
+    }
+
+}
+
+const mapStateToProps = state => {
+    return {
+        ${stringUtil.camelName($db.table)}List: state.${stringUtil.camelName($db.table)}.${stringUtil.camelName($db.table)}List,
+        ${stringUtil.camelName($db.table)}: state.${stringUtil.camelName($db.table)}.${stringUtil.camelName($db.table)}
+    };
+  };
+  
+const actions = {
+    getAll,
+    save,
+    deleteOne,
+    getOne,
+    update,
+    clearState
+};
+  
+export default connect(mapStateToProps,actions)($db.table$db.outputFileSufix);

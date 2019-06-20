@@ -1,0 +1,23 @@
+import  assign from  'object-assign';
+
+const TYPE_GET_LIST = "GET_${stringUtil.upper($db.table)}_LIST";
+const TYPE_GET_ONE_OBJECT = "GET_${stringUtil.upper($db.table)}";
+
+const initialState = {
+        '${stringUtil.camelName($db.table)}List': [],
+        '${stringUtil.camelName($db.table)}': null
+    };
+
+export default (state = initialState, action) => {
+    
+    switch (action.type) {
+        case TYPE_GET_LIST: {
+            return assign({}, state, {'${stringUtil.camelName($db.table)}List': action.payload});
+        }
+        case TYPE_GET_ONE_OBJECT: {
+            return assign({}, state, {'${stringUtil.camelName($db.table)}': action.payload});
+        }
+        default:
+            return state;
+    }
+ };

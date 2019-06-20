@@ -18,6 +18,9 @@ public class JavaTypesUtil {
 		types.put("INT", "Integer");
 		types.put("DATETIME", "Date");
 		types.put("ID", "Long");
+		types.put("BIGINT", "Long");
+		types.put("BOOL", "Boolean");
+		types.put("TINYINT", "Boolean");
 	}
 
 	public JavaTypesUtil() {

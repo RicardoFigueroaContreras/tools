@@ -1,0 +1,28 @@
+package $db.BasePackage$db.packageSufix;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class $db.table$db.outputFileSufix extends AditableEntity<Long> {
+
+#foreach($field in $db.colls) #if($field.name != "createdBy" && $field.name != "modifiedBy" && $field.name != "createdDate" && $field.name != "modifiedDate")
+	${java.getIdProperties($field.name)}
+	private ${java.getType($field.name, $field.type)} $field.name;
+#end #end
+
+#foreach($field in $db.colls) #if($field.name != "createdBy" && $field.name != "modifiedBy" && $field.name != "createdDate" && $field.name != "modifiedDate")
+	public ${java.getType($field.name, $field.type)} get${java.getMethodName($field.name)}() {
+		return this.$field.name;
+	}
+
+public void set${java.getMethodName($field.name)}(${java.getType($field.name, $field.type)} $field.name) {
+		this.$field.name = $field.name;
+	}
+
+#end #end
+
+}
+

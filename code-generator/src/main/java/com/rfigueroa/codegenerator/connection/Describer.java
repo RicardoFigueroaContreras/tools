@@ -10,4 +10,6 @@ public interface Describer<T> {
 	Describer<T> setSettings(Map<String, String> settings);
 	
 	Describer<T> setConnection(T connection);
+	
+	Describer<T> setMappingTableNames(Map<String, String> classNames);
 }

@@ -1,0 +1,54 @@
+import apiUtil from '../../commons/apis/domayleyenApi';
+
+const TYPE_GET_LIST = "GET_${stringUtil.upper($db.table)}_LIST";
+const TYPE_GET_ONE_OBJECT = "GET_${stringUtil.upper($db.table)}";
+
+const BASE_URI = "/${stringUtil.lower($db.table)}";
+const config = {
+    headers: {'Content-Type': 'application/json'}
+};
+
+export const getAll = () => async dispatch => {
+    const reponse = await apiUtil.get(BASE_URI);
+    dispatch({
+        type: TYPE_GET_LIST,
+        payload: reponse.data
+    });
+};
+
+export const save = (activity) => dispatch => {
+    apiUtil.post(BASE_URI, activity, config).then(async () => {
+        await dispatch(getAll());
+    });
+};
+
+export const deleteOne = id => dispatch => {
+    apiUtil.delete(`${BASE_URI}/${id}`, config).then(async () => {
+        const reponse = await apiUtil.get(BASE_URI);
+        dispatch({
+            type: TYPE_GET_LIST,
+            payload: reponse.data
+        });
+    });
+};
+
+export const getOne = (id) => async dispatch => {
+    const reponse = await apiUtil.get(`${BASE_URI}/${id}`);
+    dispatch({
+        type: TYPE_GET_ONE_OBJECT,
+        payload: reponse.data
+    });
+};
+
+export const update = (activity) => dispatch => {
+    apiUtil.put(BASE_URI, activity, config)
+    .then(()=> dispatch({type: TYPE_GET_ONE_OBJECT, payload: null}))
+    .then(async () => {
+        const reponse = await apiUtil.get(BASE_URI);
+        dispatch({type: TYPE_GET_LIST, payload: reponse.data});
+    });
+};
+
+export const clearState = () => dispatch => {
+    dispatch({type: TYPE_GET_ONE_OBJECT, payload: {}});
+};
